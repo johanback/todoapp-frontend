@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
+import Sidebar from './Components/Sidebar/Sidebar';
+import ToDoView from './Components/ToDoView/ToDoView'
+import { Container, Row, Col } from 'react-bootstrap';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Container className="pagewrapper">
+      <Row>
+        <Col md={2} className="sidebar">
+          <Sidebar />
+        </Col>
+        <Col md={10} className="mainview">
+          <ToDoView />
+        </Col>
+      </Row>
+    </Container>
+  )
+
 }
 
 export default App;
