@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import Sidebar from './Components/Sidebar/Sidebar';
@@ -6,14 +6,17 @@ import ToDoView from './Components/ToDoView/ToDoView'
 import { Container, Row, Col } from 'react-bootstrap';
 
 function App() {
+
+  const [activeList, setActiveList] = useState([]);
+
   return (
     <Container className="pagewrapper">
       <Row>
         <Col md={2} className="sidebar">
-          <Sidebar />
+          <Sidebar setActiveList={setActiveList}/>
         </Col>
         <Col md={10} className="mainview">
-          <ToDoView />
+          <ToDoView activeList={activeList} />
         </Col>
       </Row>
     </Container>

@@ -1,0 +1,17 @@
+.toDoRow {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    font-size: 120%;
+}
+
+.checkmark {
+    margin-right: 20px;
+}
+
+.editbutton {
+    margin-left: 20px;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
