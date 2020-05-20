@@ -5,38 +5,77 @@ import { ListGroup } from 'react-bootstrap';
 
 function ToDoView(props) {
 
-    const [currentToDo, setCurrentToDo] = useState(
-        [
-            {
+    const allToDos = [
+        {
+            "id": 1,
+            "parent": {
                 "id": 1,
-                "parent": {
-                    "id": 1,
-                    "listName": "Groceries"
-                },
-                "toDoDescription": "Apples",
-                "completed": false
+                "listName": "Groceries"
             },
-            {
+            "toDoDescription": "Apples",
+            "completed": false
+        },
+        {
+            "id": 2,
+            "parent": {
+                "id": 1,
+                "listName": "Groceries"
+            },
+            "toDoDescription": "Pasta",
+            "completed": false
+        },
+        {
+            "id": 3,
+            "parent": {
+                "id": 1,
+                "listName": "Groceries"
+            },
+            "toDoDescription": "Coffee",
+            "completed": false
+        },
+        {
+            "id": 4,
+            "parent": {
                 "id": 2,
-                "parent": {
-                    "id": 1,
-                    "listName": "Groceries"
-                },
-                "toDoDescription": "Pasta",
-                "completed": false
+                "listName": "Workout"
             },
-            {
-                "id": 3,
-                "parent": {
-                    "id": 1,
-                    "listName": "Groceries"
-                },
-                "toDoDescription": "Coffee",
-                "completed": false
-            }
-        ]);
+            "toDoDescription": "Deadlift",
+            "completed": false
+        },
+        {
+            "id": 5,
+            "parent": {
+                "id": 2,
+                "listName": "Workout"
+            },
+            "toDoDescription": "Squat",
+            "completed": false
+        },
+        {
+            "id": 6,
+            "parent": {
+                "id": 2,
+                "listName": "Workout"
+            },
+            "toDoDescription": "Bench press",
+            "completed": false
+        }
+    ]
 
-    const [activeToDo, setActiveToDo] = useState({});
+    const [currentToDo, setCurrentToDo] = useState(getActiveList);
+
+    useEffect(() => { setCurrentToDo(getActiveList(props.activeList)) }, [props.activeList]);
+
+
+    function getActiveList() {
+        let listToDisplay = [];
+        for (const index in allToDos) {
+            if (allToDos[index].parent.id == props.activeList)
+                listToDisplay.push(allToDos[index])
+        }
+        console.log(listToDisplay)
+        return listToDisplay;
+    }
 
     function handleChangeOfCompleted(changedId, newCompleted) {
         for (const index in currentToDo) {
