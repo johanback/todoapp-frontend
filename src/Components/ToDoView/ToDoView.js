@@ -61,20 +61,29 @@ function ToDoView(props) {
             "completed": false
         }
     ]
+    const [currentToDo, setCurrentToDo] = useState([]);
+    const [currentToDoTitle, setCurrentToDoTitle] = useState("");
+    const [currentToDoLoaded, setCurrentToDoLoaded] = useState(false);
 
-    const [currentToDo, setCurrentToDo] = useState(getActiveList);
-
-    useEffect(() => { setCurrentToDo(getActiveList(props.activeList)) }, [props.activeList]);
+    useEffect(() => { getActiveList(props.activeList) }, [props.activeList])
+    
+    useEffect(() => {
+        console.log(currentToDo)
+        setCurrentToDoLoaded(true);
+    }, [currentToDo])
 
 
     function getActiveList() {
-        let listToDisplay = [];
-        for (const index in allToDos) {
-            if (allToDos[index].parent.id == props.activeList)
-                listToDisplay.push(allToDos[index])
-        }
-        console.log(listToDisplay)
-        return listToDisplay;
+
+        let url = "http://localhost:8080/items/" + props.activeList;
+        fetch(url)
+            .then(result => result.json())
+            .then(result => {
+                setCurrentToDo(result)
+                setCurrentToDoTitle(result[0].parent.listName)
+
+            })
+
     }
 
     function handleChangeOfCompleted(changedId, newCompleted) {
@@ -83,7 +92,6 @@ function ToDoView(props) {
                 let newToDo = currentToDo;
                 newToDo[index].completed = newCompleted;
                 setCurrentToDo(newToDo);
-                console.log(currentToDo);
             }
         }
     }
@@ -101,8 +109,8 @@ function ToDoView(props) {
 
     return (
         <React.Fragment>
-            <h1>{props.activeList}</h1>
-            {renderToDoList(currentToDo)}
+            <h3 className="listTitle">{currentToDoTitle}</h3>
+            {currentToDoLoaded ? renderToDoList(currentToDo) : <span>Loading</span>}
         </React.Fragment>
     )
 }
