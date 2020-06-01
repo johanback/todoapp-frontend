@@ -17,7 +17,7 @@ function ToDoItemComponent(props) {
 
         <div className="toDoRow" id={props.id}>
             <Form.Check inline type={"checkbox"} onChange={handleCompleted} />
-            <span className={completed ? 'completed' : ''}>{props.toDoDescription}</span>
+            <span className={completed ? 'strikethrough' : ''}>{props.toDoDescription}</span>
             <Button className="editbutton">Edit</Button>
         </div>
 
