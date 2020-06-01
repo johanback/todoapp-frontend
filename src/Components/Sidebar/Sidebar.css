@@ -4,3 +4,22 @@
     font-weight: bold;
     font-size: 110%;
 }
+
+.toDoLists {
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+
+.newListButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-outline-secondary {
+    width: 50%;
+    margin-bottom: 2px;
+    color: #00b3db;
+    font-size: 100%;
+    border-radius: 0px;
+}
