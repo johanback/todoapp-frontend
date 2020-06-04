@@ -27,36 +27,39 @@ function Sidebar(props) {
   //   }
   // ];
 
+  //Fetches all lists from the backend and saves them in the state
   function getAllLists() {
     fetch("http://localhost:8080/lists/")
-        .then(result => result.json())
-        .then(result => {
-          setLists(result)
-        })
+      .then(result => result.json())
+      .then(result => {
+        setLists(result)
+      })
   }
 
-  async function addNewList(url = 'http://localhost:8080/lists',
-    data = { 'newList' : 'The New List' }) {
-    const response = await fetch(url, {
+
+  //Sends the new list name to the backend and saves it in the DB
+  async function addNewList (){
+    const response = await fetch('http://localhost:8080/lists', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data) 
+      body: JSON.stringify({ 'listName': 'The New List', })
     });
-    return response.json(); 
   }
 
   return (
     <React.Fragment>
-      <div className="sidebartitle">
-        To Do's
+      <div>
+        <div className="sidebartitle">
+          To Do's
       </div>
-      <div className="toDoLists">
-        {lists.map(x => <SidebarListButton id={x.id} listName={x.listName} setActiveList={props.setActiveList}/>)}
-      </div>
-      <div className="newListButton">
-        <Button variant="outline-secondary" onClick={addNewList}>New List</Button>
+        <div className="toDoLists">
+          {lists.map(x => <SidebarListButton id={x.id} listName={x.listName} setActiveList={props.setActiveList} />)}
+        </div>
+        <div className="newListButton">
+          <Button variant="outline-secondary" onClick={addNewList}>New List</Button>
+        </div>
       </div>
     </React.Fragment>
   )

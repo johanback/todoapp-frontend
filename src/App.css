@@ -1,8 +1,8 @@
 .pagewrapper {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.container{
+.container {
   margin: 0;
   max-width: 100%;
 }
@@ -12,8 +12,14 @@
   background-color: #f5f5f5;
 }
 
-.mainview{
+.mainview {
   margin: 0;
-  margin-top: 70px;
+  margin-top: 20px;
   background-color: #ffffff;
+}
+
+.copyright {
+  position: absolute;
+  bottom: 0;
+  right: 1;
 }

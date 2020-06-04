@@ -13,12 +13,16 @@ function App() {
     <Container className="pagewrapper">
       <Row>
         <Col md={2} className="sidebar">
-          <Sidebar setActiveList={setActiveList}/>
+          <Sidebar setActiveList={setActiveList} />
+          <span className="copyright">
+            ©Johan Back 2020
+          </span>
         </Col>
         <Col md={10} className="mainview">
           <ToDoView activeList={activeList} />
         </Col>
       </Row>
+
     </Container>
   )
 

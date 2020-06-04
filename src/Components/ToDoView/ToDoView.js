@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ToDoItemComponent from './ToDoItemComponent';
-import { ListGroup } from 'react-bootstrap';
+import ToDoViewHeader from './ToDoViewHeader';
+
+import './ToDoView.css';
+import NewItemButton from './NewItemButton';
 
 
 function ToDoView(props) {
@@ -12,11 +15,11 @@ function ToDoView(props) {
     useEffect(() => { getActiveList(props.activeList) }, [props.activeList])
     
     useEffect(() => {
-        console.log(currentToDo)
         setCurrentToDoLoaded(true);
     }, [currentToDo])
 
 
+    //Fetches the clicked lists items from the backend
     function getActiveList() {
 
         let url = "http://localhost:8080/items/" + props.activeList;
@@ -30,6 +33,7 @@ function ToDoView(props) {
 
     }
 
+    //Handles change of completed state of an item in a list
     function handleChangeOfCompleted(changedId, newCompleted) {
         for (const index in currentToDo) {
             if (currentToDo[index].id == changedId) {
@@ -40,6 +44,7 @@ function ToDoView(props) {
         }
     }
 
+    //Iterates over all toDos in the active list and creates components for each
     function renderToDoList(currentToDo) {
         return currentToDo.map(x => (
             <ToDoItemComponent
@@ -53,8 +58,9 @@ function ToDoView(props) {
 
     return (
         <React.Fragment>
-            <h3 className="listTitle">{currentToDoTitle}</h3>
+            <ToDoViewHeader currentToDoTitle={currentToDoTitle}></ToDoViewHeader>
             {currentToDoLoaded ? renderToDoList(currentToDo) : <span>Loading</span>}
+            <NewItemButton></NewItemButton>
         </React.Fragment>
     )
 }
