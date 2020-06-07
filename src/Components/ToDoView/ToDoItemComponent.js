@@ -8,11 +8,12 @@ function ToDoItemComponent(props) {
 
     const [completed, setCompleted] = useState(props.completed);
 
-    useEffect(() => { props.handleChangeOfCompleted(props.id, completed) }, [completed]);
+    // useEffect(() => { props.handleChangeOfCompleted(props.id, completed) }, [completed]);
 
     //Sets completed state of list item when checking box
     const handleCompleted = (event) => {
-        setCompleted(event.target.checked);
+        
+        props.handleChangeOfCompleted(event.target.id, event.target.checked);
     }
 
     //TODO: Edit item functionality
@@ -27,8 +28,8 @@ function ToDoItemComponent(props) {
     return (
 
         <div className="toDoRowWrapper">
-            <div className="toDoRow" id={props.id}>
-                <Form.Check inline type={"checkbox"} className="checkbox" onChange={handleCompleted} />
+            <div className="toDoRow" >
+                <Form.Check inline type={"checkbox"} className="checkbox" id={props.id} onChange={handleCompleted} />
                 <span onClick={editItem} className={titleStyles} >{props.toDoDescription}</span>
                 {/* <Button variant="outline-secondary" className="editbutton">Edit</Button> */}
             </div>

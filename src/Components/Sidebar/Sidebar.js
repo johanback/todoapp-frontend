@@ -53,7 +53,7 @@ function Sidebar(props) {
       },
       body: JSON.stringify(nameToBeSubmitted)
     });
-    
+    getAllLists();
   }
 
 

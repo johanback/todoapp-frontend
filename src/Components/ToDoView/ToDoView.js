@@ -26,6 +26,19 @@ function ToDoView(props) {
     }, [currentToDo])
 
 
+    //TODO: FIX WHERE COMPLETED STATUS IS STORED!!!!
+    async function handleChangeOfCompleted(changedItemId, completedStatus) {
+        let itemToUpdate = { 'itemId': changedItemId, 'completed': completedStatus}
+        const response = await fetch('http://localhost:8080/items/update', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(itemToUpdate)
+        });
+        
+    }
+
     //Fetches the clicked lists items from the backend
     function getActiveList() {
         let url = "http://localhost:8080/items/" + props.activeList;
@@ -33,21 +46,7 @@ function ToDoView(props) {
             .then(result => result.json())
             .then(result => {
                 setCurrentToDo(result)
-                setCurrentToDoTitle(props.activeList)
-
             })
-
-    }
-
-    //Handles change of completed state of an item in a list
-    function handleChangeOfCompleted(changedId, newCompleted) {
-        for (const index in currentToDo) {
-            if (currentToDo[index].id == changedId) {
-                let newToDo = currentToDo;
-                newToDo[index].completed = newCompleted;
-                setCurrentToDo(newToDo);
-            }
-        }
     }
 
     //Iterates over all toDos in the active list and creates components for each
@@ -55,10 +54,10 @@ function ToDoView(props) {
         if (currentToDo.length > 0) {
             return currentToDo.map(x => (
                 <ToDoItemComponent
+                    handleChangeOfCompleted={handleChangeOfCompleted}
                     id={x.id}
                     toDoDescription={x.toDoDescription}
                     completed={x.completed}
-                    handleChangeOfCompleted={handleChangeOfCompleted}
                 />
             ))
         } else {
@@ -68,9 +67,7 @@ function ToDoView(props) {
                 </div>
             )
         }
-
     }
-
 
     return (
         <React.Fragment>
@@ -89,4 +86,3 @@ function ToDoView(props) {
 }
 
 export default ToDoView;
-
