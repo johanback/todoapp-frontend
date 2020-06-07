@@ -2,3 +2,15 @@
     margin-bottom: 35px;
     margin-left: 20px
 }
+
+.listEmptyContainer {
+    text-align: center;
+}
+
+.listEmpty {
+    font-size: larger;
+    font-weight: 700;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}

@@ -2,10 +2,10 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import './NewItemButton.css';
 
-function NewItemButton() {
+function NewItemButton(props) {
     return (
         <div className="newItemButton" >
-            <Button variant="outline-secondary">New Item</Button>
+            <Button variant="outline-secondary" onClick={props.showNewItemModal}>New Item</Button>
         </div >
     )
 }
