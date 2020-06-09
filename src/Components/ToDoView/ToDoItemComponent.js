@@ -6,31 +6,40 @@ import './ToDoItemComponent.css';
 
 function ToDoItemComponent(props) {
 
-    const [completed, setCompleted] = useState(props.completed);
-
-    // useEffect(() => { props.handleChangeOfCompleted(props.id, completed) }, [completed]);
+    // useEffect(() => { console.log("YO") }, [props]);
 
     //Sets completed state of list item when checking box
     const handleCompleted = (event) => {
-        
         props.handleChangeOfCompleted(event.target.id, event.target.checked);
     }
 
     //TODO: Edit item functionality
-    function editItem(e) { 
+    function editItem(e) {
         console.log(e.target)
     }
 
 
     //Handles multiple styles conditionally rendering
-    let titleStyles = completed ? "itemname strikethrough" : "itemname";
+    let titleStyles = props.completed ? "itemname strikethrough" : "itemname";
 
     return (
 
         <div className="toDoRowWrapper">
             <div className="toDoRow" >
-                <Form.Check inline type={"checkbox"} className="checkbox" id={props.id} onChange={handleCompleted} />
-                <span onClick={editItem} className={titleStyles} >{props.toDoDescription}</span>
+                <Form.Check
+                    key={'check' + props.id}
+                    inline
+                    defaultChecked={props.completed}
+                    type={"checkbox"}
+                    className="checkbox"
+                    id={props.id}
+                    onChange={handleCompleted} />
+                <span
+                    key={'desc' + props.id}
+                    onClick={editItem}
+                    className={titleStyles} >
+                    {props.toDoDescription}
+                </span>
                 {/* <Button variant="outline-secondary" className="editbutton">Edit</Button> */}
             </div>
         </div>

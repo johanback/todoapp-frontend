@@ -21,12 +21,14 @@ function ToDoView(props) {
 
     useEffect(() => { getActiveList(props.activeList) }, [props.activeList])
 
+    useEffect(() => { "Noticed change, re-rendering list!" }, [currentToDo]);
+
     useEffect(() => {
         setCurrentToDoLoaded(true);
     }, [currentToDo])
 
 
-    //TODO: FIX WHERE COMPLETED STATUS IS STORED!!!!
+    //Commits changes of completed status to the backend and the re-fetches the list
     async function handleChangeOfCompleted(changedItemId, completedStatus) {
         let itemToUpdate = { 'itemId': changedItemId, 'completed': completedStatus}
         const response = await fetch('http://localhost:8080/items/update', {
@@ -36,8 +38,10 @@ function ToDoView(props) {
             },
             body: JSON.stringify(itemToUpdate)
         });
-        
+        getActiveList();
+         
     }
+
 
     //Fetches the clicked lists items from the backend
     function getActiveList() {
@@ -52,12 +56,13 @@ function ToDoView(props) {
     //Iterates over all toDos in the active list and creates components for each
     function renderToDoList(currentToDo) {
         if (currentToDo.length > 0) {
-            return currentToDo.map(x => (
+            return currentToDo.map(item => (
                 <ToDoItemComponent
+                    key={item.id}
                     handleChangeOfCompleted={handleChangeOfCompleted}
-                    id={x.id}
-                    toDoDescription={x.toDoDescription}
-                    completed={x.completed}
+                    id={item.id}
+                    toDoDescription={item.toDoDescription}
+                    completed={item.completed}
                 />
             ))
         } else {
@@ -72,7 +77,7 @@ function ToDoView(props) {
     return (
         <React.Fragment>
             <ToDoViewHeader currentToDoTitle={currentToDoTitle}></ToDoViewHeader>
-            {currentToDoLoaded ? renderToDoList(currentToDo) : <span>Loading</span>}
+            {renderToDoList(currentToDo)}
             <NewItemButton showNewItemModal={setShow}></NewItemButton>
             <NewItemModal
                 show={show}
